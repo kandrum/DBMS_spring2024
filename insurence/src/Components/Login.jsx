@@ -11,27 +11,48 @@ function Login() {
   const islogin = useSelector((state) => state.login.isLogin); 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (islogin) {
-      console.log('login',islogin);
-      navigate('/home');
-    }
-  }, [islogin, navigate]);
+  
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (username === "Admin" && password === "Admin123") {
-      dispatch(setLogin(true)); 
-    } else {
-      alert('Your username or password is wrong');
-      dispatch(setLogin(false));
-    }
+    
+    fetch('http://localhost:8080/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password
+      })
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (data.message === 'Login successful') {
+        dispatch(setLogin(true));
+        navigate('/home');
+      } else {
+        dispatch(setLogin(false));
+        throw new Error('Failed to login');
+      }
+    })
+    .catch(error => {
+      console.error('There has been a problem with your login operation:', error);
+      alert(error.message);
+    });
   };
+   console.log("login",islogin);
+  
 
   const handleRegister = (e) => {
     e.preventDefault();
     // Here you can handle the registration logic
+    navigate('/register');
   };
 
   return (
