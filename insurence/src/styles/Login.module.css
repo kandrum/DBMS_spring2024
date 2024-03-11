@@ -1,0 +1,90 @@
+.container {
+    width: auto; /* Adjusts the width to fit content with padding */
+    max-width: 900px; /* Or any maximum size you prefer */
+    margin: 50px auto;
+    padding: 40px; /* Increased padding for a larger container */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #d9e1e9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* This will help keep contents centered */
+  }
+  
+
+  
+.fullPageBackground {
+    background-image: url('../Components/image1.jpg');
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.buttonGroup {
+    display: flex;
+    justify-content: space-between; /* This will place the buttons at the far edges; adjust as needed */
+  }
+
+.label {
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.button {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  flex: 1;
+  margin: 5px;
+}
+
+.loginButton {
+  background-color: #007bff;
+}
+
+.loginButton:hover {
+  background-color: #0056b3;
+}
+
+.loginButton:active {
+  background-color: #004494;
+}
+
+.registerButton {
+  background-color: #28a745;
+}
+
+.registerButton:hover {
+  background-color: #218838;
+}
+
+.registerButton:active {
+  background-color: #1e7e34;
+}
