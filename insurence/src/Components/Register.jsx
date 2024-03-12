@@ -37,9 +37,28 @@ function Register() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData);
-        // Here you would typically handle the form submission,
-        // such as sending the data to a backend server for processing.
+        fetch('http://localhost:8080/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data.message);
+        alert(data.message);
+        // Redirect or clear form here
+    })
+    .catch(error => {
+        console.error('Registration failed:', error);
+        alert('Registration failed. Please try again.');
+    });
     };
 
     return (

@@ -50,6 +50,39 @@ app.post('/login', (req, res) => {
   });
 });
 
+// Inside app.js, after setting up your express application
+
+app.post('/register', (req, res) => {
+  const { firstName, lastName, email, password, dateOfBirth, mobileNo, address } = req.body;
+  const role = 'user'; // Default role
+
+  // Insert user into 'users' table
+  const userSql = 'INSERT INTO users (role, password, firstname, lastname, email, dateOfBirth) VALUES (?, ?, ?, ?, ?, ?)';
+  
+  db.query(userSql, [role, password, firstName, lastName, email, dateOfBirth], (err, result) => {
+      if (err) {
+          console.error('Error adding user:', err);
+          res.status(500).send('Error registering user.');
+          return;
+      }
+      
+      const userId = result.insertId;
+      
+      // Now insert address into 'address' table
+      const addressSql = 'INSERT INTO address (user_id, street, city, state, zipcode) VALUES (?, ?, ?, ?, ?)';
+      
+      db.query(addressSql, [userId, address.street, address.city, address.state, address.zipCode], (err, result) => {
+          if (err) {
+              console.error('Error adding address:', err);
+              res.status(500).send('Error registering user address.');
+              return;
+          }
+          
+          res.send({ message: 'Registration successful' });
+      });
+  });
+});
+
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
