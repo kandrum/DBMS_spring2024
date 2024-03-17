@@ -1,87 +1,20 @@
 const express = require('express');
-const mysql = require('mysql');
+
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const loginRoute = require('./services/login');
+const registerRoute = require('./services/register');
 
 const app = express();
 
-// Replace these credentials with your actual MySQL Workbench credentials
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'Mou6pree@',
-  database: 'Insurence'
-});
-
-db.connect(err => {
-  if (err) {
-    console.error('An error occurred while connecting to the DB');
-    throw err;
-  }
-  console.log('Connected to database');
-});
 
 app.use(cors());
 app.use(bodyParser.json());
 
-// Login endpoint
-app.post('/login', (req, res) => {
-  const { username, password } = req.body;
+app.use(loginRoute);
+app.use(registerRoute);
 
-  // Your SQL statement to select the user with the given username
-  const sql = 'SELECT * FROM users WHERE firstname = ?'; // Assuming the username is the email
-  db.query(sql, [username], function (err, result) {
-    if (err) {
-      res.status(500).send('Error on the server.');
-      return;
-    }
-    if (result.length > 0) {
-      const user = result[0];
 
-      // This is not secure; replace it with proper password hashing in production
-      if (password === user.password) {
-        res.send({ message: 'Login successful', user });
-      } else {
-        res.status(401).send('Password is incorrect');
-      }
-    } else {
-      res.status(404).send('User not found');
-    }
-  });
-});
-
-// Inside app.js, after setting up your express application
-
-app.post('/register', (req, res) => {
-  const { firstName, lastName, email, password, dateOfBirth, mobileNo, address } = req.body;
-  const role = 'user'; // Default role
-
-  // Insert user into 'users' table
-  const userSql = 'INSERT INTO users (role, password, firstname, lastname, email, dateOfBirth) VALUES (?, ?, ?, ?, ?, ?)';
-  
-  db.query(userSql, [role, password, firstName, lastName, email, dateOfBirth], (err, result) => {
-      if (err) {
-          console.error('Error adding user:', err);
-          res.status(500).send('Error registering user.');
-          return;
-      }
-      
-      const userId = result.insertId;
-      
-      // Now insert address into 'address' table
-      const addressSql = 'INSERT INTO address (user_id, street, city, state, zipcode) VALUES (?, ?, ?, ?, ?)';
-      
-      db.query(addressSql, [userId, address.street, address.city, address.state, address.zipCode], (err, result) => {
-          if (err) {
-              console.error('Error adding address:', err);
-              res.status(500).send('Error registering user address.');
-              return;
-          }
-          
-          res.send({ message: 'Registration successful' });
-      });
-  });
-});
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

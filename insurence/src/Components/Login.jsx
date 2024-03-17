@@ -3,6 +3,7 @@ import styles from '../styles/Login.module.css';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'; 
 import { setLogin } from '../redux/LoginReducer';
+import { setUsername as Reduxusername } from '../redux/UsernameReducer';
 import backdrop from './image1.jpg';
 
 function Login() {
@@ -33,18 +34,23 @@ function Login() {
       return response.json();
     })
     .then(data => {
-      if (data.message === 'Login successful') {
+      console.log('Responce data',data);
+      const [message, userDetails] = data; // Destructure the array
+      if (message === 'Login successful') {
         dispatch(setLogin(true));
+        console.log(userDetails.firstName); // Access firstName from userDetails
+        dispatch(Reduxusername(userDetails.firstName)); // Dispatch using the actual property name
         navigate('/home');
       } else {
         dispatch(setLogin(false));
-        throw new Error('Failed to login');
+        throw new Error(message); // Use the message from the array
       }
     })
     .catch(error => {
       console.error('There has been a problem with your login operation:', error);
       alert(error.message);
-    });
+    });    
+
   };
    console.log("login",islogin);
   

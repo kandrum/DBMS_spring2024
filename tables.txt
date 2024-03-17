@@ -1,0 +1,83 @@
+1. Users Table
+user_id (Primary Key)
+email
+password
+first_name
+last_name
+role (e.g., user, admin)
+2. Policies Table
+policy_id (Primary Key)
+user_id (Foreign Key from Users)
+policy_number
+policy_type (e.g., auto, home, life)
+start_date
+end_date
+status (e.g., active, expired)
+3. Claims Table
+claim_id (Primary Key)
+policy_id (Foreign Key from Policies)
+date_of_incident
+claim_type
+description
+status (e.g., submitted, under review, approved, denied)
+file_attachments (could be stored as URLs to where the files are kept)
+4. Address Table (if needed)
+address_id (Primary Key)
+user_id (Foreign Key from Users)
+street
+cit
+state
+zip_code
+
+==============================================================================================Database Schema
+Users Table
+Stores user information.
+
+user_id (Primary Key)
+email
+password
+first_name
+last_name
+Policies Table
+Stores basic policy information, including a reference to the user and the type of policy.
+
+policy_id (Primary Key)
+user_id (Foreign Key from Users)
+policy_type (e.g., 'auto', 'health', 'rental')
+start_date
+end_date
+status (e.g., 'active', 'expired')
+Auto Insurance Policies Table
+Stores details specific to auto insurance policies.
+
+auto_policy_id (Primary Key, Foreign Key from Policies)
+vehicle_type (e.g., sedan, SUV, truck)
+make_and_model
+year
+mileage
+Additional columns as needed (e.g., safety_features, parking_location)
+Health Insurance Policies Table
+Stores details specific to health insurance policies.
+
+health_policy_id (Primary Key, Foreign Key from Policies)
+applicant_age
+smoking_status
+coverage_type (e.g., individual, family)
+Additional columns as needed (e.g., pre_existing_conditions, preferred_deductible)
+Rental Insurance Policies Table
+Stores details specific to rental insurance policies.
+
+rental_policy_id (Primary Key, Foreign Key from Policies)
+property_type (e.g., apartment, house)
+location
+coverage_amount
+deductible
+Additional columns as needed (e.g., liability_coverage, safety_features)
+Design Considerations
+Foreign Keys: In the tables for specific policy types (Auto Insurance Policies, Health Insurance Policies, Rental Insurance Policies), the primary key also acts as a foreign key referencing the Policies table. This enforces a one-to-one relationship between a policy record and its detailed information in these tables.
+
+Policy Types Enumeration: The policy_type column in the Policies table could be implemented as an ENUM if the number of policy types is known and relatively static. Otherwise, consider using a separate table to define policy types for greater flexibility.
+
+Normalization: This schema design keeps the database normalized, which helps in maintaining data integrity and reduces redundancy. Each policy type has its own table for specific attributes, making the system scalable and easier to manage.
+
+Many-to-One Relationship: The relationship between users and policies is many-to-one, where a user can have multiple policies. This is represented by the user_id foreign key in the Policies tabl

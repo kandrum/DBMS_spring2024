@@ -1,0 +1,105 @@
+.header {
+  background-color: #91919e;
+  color: white;
+  padding: 20px 0;
+}
+.headerContent {
+  display: flex;
+  justify-content: flex-end; /* Aligns children to the right */
+  align-items: center;
+  width: 100%;
+}
+
+.navList {
+  list-style-type: none;
+  display: flex;
+  gap: 20px; /* Space between the navigation items */
+  padding: 0;
+  margin: 0;
+}
+
+.navItem {
+  cursor: pointer;
+  padding: 10px 20px;
+  transition: background-color 0.3s;
+}
+
+.navItem:hover {
+  background-color: #b9b9d0;
+}
+
+.navLink {
+  color: black;
+  text-decoration: none;
+}
+.title {
+  display: none;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.policyButton {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin: 0 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.policyButton:hover {
+  background-color: #45a049;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center; /* Center buttons horizontally */
+  flex-wrap: wrap; /* Wrap buttons for smaller screens */
+  gap: 30px; /* Space between buttons */
+  margin-top: 50px; /* Space from the top */
+}
+
+.cardButton {
+  background-color: #fff; /* Background color for the card */
+  display: flex;
+  flex-direction: column; /* Stack image and text vertically */
+  align-items: center; /* Center content horizontally */
+  padding: 20px 30px; /* Padding inside the card */
+  border-radius: 12px; /* Rounded corners for the card */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+  text-align: center; /* Center text alignment */
+}
+
+.cardButton:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Larger shadow on hover */
+}
+
+.cardButton img {
+  width: 60px; /* Icon size */
+  margin-bottom: 10px; /* Space between icon and text */
+}
+
+.buttonText {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center text alignment */
+}
+
+.buttonMain {
+  font-size: 1.2rem; /* Main text size */
+  font-weight: 600;
+  color: #333; /* Main text color */
+}
+
+.buttonSub {
+  font-size: 1rem; /* Subtext size */
+  color: #666; /* Subtext color */
+}
