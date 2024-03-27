@@ -51,6 +51,7 @@
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
+  font-size: 1.1rem;
 }
 
 .policyButton:hover {
@@ -83,8 +84,8 @@
 }
 
 .cardButton img {
-  width: 60px; /* Icon size */
-  margin-bottom: 10px; /* Space between icon and text */
+  width: 80px; /* Icon size */
+  margin-bottom: 15px; /* Space between icon and text */
 }
 
 .buttonText {
@@ -94,12 +95,12 @@
 }
 
 .buttonMain {
-  font-size: 1.2rem; /* Main text size */
+  font-size: 1.4rem; /* Main text size */
   font-weight: 600;
   color: #333; /* Main text color */
 }
 
 .buttonSub {
-  font-size: 1rem; /* Subtext size */
+  font-size: 1.2rem; /* Subtext size */
   color: #666; /* Subtext color */
 }

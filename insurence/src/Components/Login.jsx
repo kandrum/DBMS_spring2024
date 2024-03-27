@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'; 
 import { setLogin } from '../redux/LoginReducer';
 import { setUsername as Reduxusername } from '../redux/UsernameReducer';
+import { setUserid } from '../redux/UseridReducer';
 import backdrop from './image1.jpg';
 
 function Login() {
@@ -34,18 +35,21 @@ function Login() {
       return response.json();
     })
     .then(data => {
-      console.log('Responce data',data);
-      const [message, userDetails] = data; // Destructure the array
+      console.log('Response data', data);
+      const [message, userDetails, userIdDetails] = data; // Adjusted destructuring
       if (message === 'Login successful') {
         dispatch(setLogin(true));
         console.log(userDetails.firstName); // Access firstName from userDetails
-        dispatch(Reduxusername(userDetails.firstName)); // Dispatch using the actual property name
+        dispatch(Reduxusername(userDetails.firstName)); // Corrected dispatch
+        console.log("login with userId in login.jsx", userIdDetails.userid);
+        dispatch(setUserid(userIdDetails.userid)); // Corrected dispatch for userId
         navigate('/home');
       } else {
         dispatch(setLogin(false));
         throw new Error(message); // Use the message from the array
       }
     })
+    
     .catch(error => {
       console.error('There has been a problem with your login operation:', error);
       alert(error.message);

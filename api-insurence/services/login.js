@@ -26,7 +26,7 @@ router.post('/login', (req, res) => {
       const user = result[0];
       if (password === user.password) {
         // Send message and firstName in an array
-        res.json(['Login successful', { firstName: user.firstname }]);
+        res.json(['Login successful', { firstName: user.firstname },{userid: user.id}]);
       } else {
         res.status(401).json(['Password is incorrect']); // Send array response
       }
